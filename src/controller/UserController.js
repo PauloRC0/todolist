@@ -8,8 +8,6 @@ module.exports = {
 
       const task = await Task.create({ title, status, priority, description });
 
-      console.log("recebendo os dados:", title, status, priority, description);
-
       return res.status(200).json(task);
     } catch (error) {
       return res.status(400).json({ error: error.message });
@@ -28,6 +26,20 @@ module.exports = {
       await task.update({ title, status, priority, description });
 
       return res.status(200).json(task);
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
+    }
+  },
+
+  async listTasks(req, res) {
+    try {
+      const taks = await Task.findAll();
+
+      if (!taks) {
+        return res.status(200).json({ message: "nehuma tarefa encontrada" });
+      }
+
+      return res.status(200).json(taks);
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }
