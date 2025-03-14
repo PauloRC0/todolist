@@ -25,7 +25,7 @@ module.exports = {
       }
       await task.update({ title, status, priority, description });
 
-      return res.status(200).json(task);
+      return res.status(200).json({message:"Tarefa atualizada com sucesso!"});
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }
@@ -40,6 +40,19 @@ module.exports = {
       }
 
       return res.status(200).json(taks);
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
+    }
+  },
+  async deleteTasks(req, res) {
+    try {
+      const { id } = req.params;
+      const task = await Task.findByPk(id);
+      if (!task) {
+        return res.status(401).json({ error: "Tarefa não encontrada!" });
+      }
+      await task.destroy();
+      return res.status(200).json({ message: "Tarefa deletada com sucesso!" });
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }
