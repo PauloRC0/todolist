@@ -1,5 +1,3 @@
-const { where } = require("sequelize");
-const { up } = require("../database/migrations/20250215032153-create-tasks");
 const Task = require("../models/tasks");
 module.exports = {
   async createTasks(req, res) {
